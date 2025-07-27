@@ -1,0 +1,37 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+concurrency:
+  group: '${{ github.workflow }}-${{ github.head_ref || github.ref }}'
+  cancel-in-progress: true
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        platform:
+          - 'macos-latest'
+          - 'ubuntu-latest'
+          - 'windows-latest'
+      fail-fast: false
+
+    runs-on: '${{ matrix.platform }}'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: 'go.mod'
+          cache: true
+          cache-dependency-path: go.sum
+
+      - name: Test
+        run: go test -race -cover ./...

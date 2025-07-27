@@ -1,0 +1,31 @@
+# Dependabot configuration for Cita Ping backend
+# This configuration will automatically check for dependency updates and create pull requests
+# See: https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+version: 2
+updates:
+  # Go module dependencies
+  - package-ecosystem: "gomod"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "UTC"
+    reviewers:
+      - "msamoylov"
+    assignees:
+      - "msamoylov"
+
+  # GitHub Actions dependencies
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "UTC"
+    reviewers:
+      - "msamoylov"
+    assignees:
+      - "msamoylov"
