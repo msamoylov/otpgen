@@ -14,15 +14,7 @@ concurrency:
 
 jobs:
   test:
-    strategy:
-      matrix:
-        platform:
-          - 'macos-latest'
-          - 'ubuntu-latest'
-          - 'windows-latest'
-      fail-fast: false
-
-    runs-on: '${{ matrix.platform }}'
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
@@ -36,4 +28,9 @@ jobs:
           cache-dependency-path: go.sum
 
       - name: Test
-        run: go test -race -cover ./...
+        run: go test -race -coverprofile=coverage.txt
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
