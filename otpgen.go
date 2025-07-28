@@ -4,7 +4,6 @@ package otpgen
 import (
 	"crypto/rand"
 	"errors"
-	"math/big"
 )
 
 const (
@@ -24,16 +23,16 @@ func Generate(length int) (string, error) {
 		return "", ErrInvalidLength
 	}
 
-	const digits = "0123456789"
-	digitsLen := big.NewInt(int64(len(digits)))
-	token := make([]byte, length)
+	// Generate all random bytes in a single call
+	randomBytes := make([]byte, length)
+	if _, err := rand.Read(randomBytes); err != nil {
+		return "", ErrCryptoFailure
+	}
 
-	for i := range token {
-		num, err := rand.Int(rand.Reader, digitsLen)
-		if err != nil {
-			return "", ErrCryptoFailure
-		}
-		token[i] = digits[num.Int64()]
+	// Convert to digits
+	token := make([]byte, length)
+	for i := 0; i < length; i++ {
+		token[i] = '0' + (randomBytes[i] % 10)
 	}
 
 	return string(token), nil
