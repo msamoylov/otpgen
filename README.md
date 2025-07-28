@@ -2,6 +2,7 @@
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/msamoylov/otpgen.svg)](https://pkg.go.dev/github.com/msamoylov/otpgen)
 [![Go Report Card](https://goreportcard.com/badge/github.com/msamoylov/otpgen)](https://goreportcard.com/report/github.com/msamoylov/otpgen)
+[![codecov](https://codecov.io/gh/msamoylov/otpgen/graph/badge.svg?token=X9AYIXE082)](https://codecov.io/gh/msamoylov/otpgen)
 
 Cryptographically secure OTP token generation for Go.
 
